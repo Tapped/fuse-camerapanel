@@ -86,7 +86,7 @@ public class CameraVisual : ControlVisual<CameraStream>
     return size;
   }
 
-  protected sealed override void OnDraw(DrawContext dc)
+  public override void Draw(DrawContext dc)
   {
     var texture = Camera.VideoTexture;
     if (texture == null)
@@ -106,7 +106,7 @@ public class CameraVisual : ControlVisual<CameraStream>
   {
     static public VideoDrawElement Impl = new VideoDrawElement();
 
-    public void Draw(DrawContext dc, Node element, float2 offset, float2 size,
+    public void Draw(DrawContext dc, Fuse.Visual element, float2 offset, float2 size,
       float2 uvPosition, float2 uvSize, VideoTexture tex, int rotate)
     {
       draw
@@ -119,12 +119,12 @@ public class CameraVisual : ControlVisual<CameraStream>
         Position: offset;
 
         TexCoord: VertexData * uvSize + uvPosition;
-        TexCoord: (rotate == 0) 
-          ? float2(prev.X, prev.Y) 
-          : (rotate == 1) 
-          ? float2(prev.Y, 1.0f - prev.X) 
-          : (rotate == 2) 
-          ? float2(1.0f - prev.X, 1.0f - prev.Y) 
+        TexCoord: (rotate == 0)
+          ? float2(prev.X, prev.Y)
+          : (rotate == 1)
+          ? float2(prev.Y, 1.0f - prev.X)
+          : (rotate == 2)
+          ? float2(1.0f - prev.X, 1.0f - prev.Y)
           : float2(1.0f - prev.Y, 1.0f - prev.X);
 
         PixelColor: float4(sample(tex, TexCoord).XYZ, 1.0f);
