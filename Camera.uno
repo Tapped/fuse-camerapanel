@@ -14,7 +14,9 @@ public enum CameraFacing
 public extern (!iOS && !Android) class Camera
 {
   public Promise<PictureResult> TakePicture() {
-    return new Promise<PictureResult>();
+    var p = new Promise<PictureResult>();
+    p.Resolve(new PictureResult(""));
+    return p;
   }
   public void Start() {}
   public void Stop() {}
